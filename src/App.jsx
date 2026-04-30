@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Sidebar from './components/Sidebar';
 import JARVIS from './components/JARVIS';
@@ -20,9 +20,11 @@ import SMSCampaign from './pages/SMSCampaign';
 import WhatsAppCampaign from './pages/WhatsAppCampaign';
 import LinkedInOutreach from './pages/LinkedInOutreach';
 import ColdCalling from './pages/ColdCalling';
+import SystemDashboard from './pages/SystemDashboard';
 import './styles/design-system.css';
 
 const API = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+const WS_URL = import.meta.env.VITE_WS_URL || API.replace('https', 'wss').replace('http', 'ws');
 
 export default function App() {
   const [systemStatus, setSystemStatus] = useState('connecting');
@@ -38,7 +40,7 @@ export default function App() {
     // WebSocket for real-time updates
     let ws;
     const connectWS = () => {
-      ws = new WebSocket('ws://localhost:8000/ws');
+      ws = new WebSocket(`${WS_URL}/ws`);
       ws.onopen = () => setSystemStatus('operational');
       ws.onmessage = (event) => {
         try {
@@ -68,7 +70,7 @@ export default function App() {
   }, []);
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <div className="app-layout">
         <Sidebar systemStatus={systemStatus} hotLeadCount={hotLeadCount} />
         <Routes>
@@ -88,11 +90,13 @@ export default function App() {
           <Route path="/whatsapp" element={<WhatsAppCampaign />} />
           <Route path="/linkedin" element={<LinkedInOutreach />} />
           <Route path="/cold-call" element={<ColdCalling />} />
+          <Route path="/system" element={<SystemDashboard />} />
+          <Route path="/control-tower" element={<SystemDashboard />} />
           <Route path="/hot-leads" element={<HotLeads />} />
           <Route path="/settings" element={<Settings />} />
         </Routes>
         <JARVIS />
       </div>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
