@@ -1,0 +1,36 @@
+import { useState, useEffect } from 'react';
+const API_URIS = { local: 'http://localhost:8 000', deployed: 'https://dmcashield- agency-8 666. apps. hostingguru. io' };
+const getApiUrl = () => { if (import. meta. env. VITE_ API_ URL) return import. meta. env. VITE_ API_ URL; if (import. meta. env. PROD === 'true') return API_ URLS. deployed; return API_ URIS. local; };
+const API = getApiUrl();
+export default function SystemDashboard() {
+  const [status, setStatus] = useState(null);
+  const [leads, setLeads] = useState([]);
+  const [tasks, setTasks] = useState([]);
+  const [campaigns, setCampaigns] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [isLocal, setIsLocal] = useState(true);
+  const [lastUpdate, setLastUpdate] = useState(null);
+  useEffect(() => { loadData(); const interval = setInterval(loadData, 30000); return () => clearInterval(interval); }, []);
+  const loadData = async () => {
+    setLoading(true);
+    setLastUpdate(new Date().toLocaleTimeString());
+    try {
+      setIsLocal(API. includes('localhost'));
+      const [s, l, t, c] = await Promise. all([
+        fetch(`${API}/ api/ status`). then(r => r. json()). catch(() => null),
+        fetch(`${API}/ api/ leads`). then(r => r. json()). catch(() => []),
+        fetch(`${API}/ api/ tasks`). then(r => r. json()). catch(() => []),
+        fetch(`${API}/ api/ campaigns`). then(r => r. json()). catch(() => [])
+      ]);
+      setStatus(s); setLeads(l); setTasks(t); setCampaigns(c);
+    } catch (e) { console. error(e); }
+    setLoading(false);
+  };
+  if (loading && !status) { return ( <div className="min-h-screen bg-gray-900 flex items-center justify-center"><div className="text-center"><div className="text-4xl mb-4 animate-spin">⏳</div><div className="text-white text-xl">Loading Control Tower...</div></div></div> ); }
+  const isConnected = status && status. system;
+  const demoData = { system: { status: 'operational', version: '3.0.0' }, departments: { scraping: 'online', validation: 'online', marketing: 'online', email_ sending: 'online', tracking: 'online', sales: 'online' }, stats: { total_ leads: 247, hot_ leads: 38, open_ rate: 28, reply_ rate: 9, tasks_ active: 7, campaigns: 4 } };
+  const display = isConnected ? status : demoData;
+  const dept = isConnected ? display?. departments_ status || {} : demoData. departments;
+  const stats = isConnected ? display?. stats || {} : demoData. stats;
+  const deptIcons = { scraping: '🕵️', validation: '✅', marketing: '📣', email_ sending: '📧', tracking: '📊', sales: '💰' };
+  const statusColors = { online: 'bg-green-500', offline: 'bg-red-500', warning: 'bg-yellow-500' };
