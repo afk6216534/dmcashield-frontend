@@ -72,7 +72,7 @@ export default function SystemDashboard() {
   };
 
   const display = isConnected ? status : demoData;
-  const dept = isConnected ? display?. departments_ status || {} : demoData. departments;
+  const dept = isConnected ? display?. departments_ status || display?. departments || {} : demoData. departments;
   const stats = isConnected ? display?. stats || {} : demoData. stats;
 
   const deptIcons = {
