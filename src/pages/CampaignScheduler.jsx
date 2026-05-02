@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-const API = 'http://localhost:8000';
+import API from '../config/api.js';
 
 export default function CampaignScheduler() {
   const [scheduled, setScheduled] = useState([

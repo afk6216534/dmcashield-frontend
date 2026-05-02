@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const API = 'http://localhost:8000';
+import API from '../config/api.js';
 
 export default function LaunchTask() {
   const [form, setForm] = useState({ business_type: '', city: '', state: '', country: 'USA' });
