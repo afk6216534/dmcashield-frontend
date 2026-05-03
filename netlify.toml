@@ -3,6 +3,10 @@
   publish = "dist"
   directory = "dist"
 
+[build.environment]
+  VITE_API_URL = "https://dmcashield-agency.vercel.app"
+  VITE_PROD = "true"
+
 [[redirects]]
   from = "/*"
   to = "/index.html"
