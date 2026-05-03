@@ -1,17 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const API_URLS = {
-  local: 'http://localhost:8000',
-  deployed: 'https://dmcashield-agency.vercel.app'
-};
-
-const getApiUrl = () => {
-  if (import.meta.env.VITE_API_URL) return import.meta.env.VITE_API_URL;
-  if (import.meta.env.PROD === 'true') return API_URLS.deployed;
-  return API_URLS.local;
-};
-
-const API = getApiUrl();
+const API = import.meta.env.VITE_API_URL || 'https://dmcashield-agency.vercel.app';
 
 export default function SystemDashboard() {
   const [status, setStatus] = useState(null);
