@@ -1,5 +1,5 @@
 [build]
-  command = "npm run build"
+  command = "VITE_API_URL=https://dmcashield-agency.vercel.app npm run build"
   publish = "dist"
   directory = "dist"
 
