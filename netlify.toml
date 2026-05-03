@@ -1,3 +1,4 @@
+# DMCAShield Netlify Config - Updated May 3, 2025
 [build]
   command = "npm run build"
   publish = "dist"
