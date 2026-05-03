@@ -16,4 +16,4 @@
 [[headers]]
   for = "/*"
   [headers.Cache-Control]
-    value = "no-cache"# Force rebuild Sun, May  3, 2026  9:54:10 PM
+    value = "no-cache"
