@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const API = import.meta.env.VITE_API_URL || 'https://dmcashield-agency.vercel.app';
+const API = 'https://dmcashield-agency.vercel.app';
 
 export default function JARVIS() {
   const [input, setInput] = useState('');

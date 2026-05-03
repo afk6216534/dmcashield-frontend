@@ -23,8 +23,8 @@ import ColdCalling from './pages/ColdCalling';
 import SystemDashboard from './pages/SystemDashboard';
 import './styles/design-system.css';
 
-const API = import.meta.env.VITE_API_URL || 'https://dmcashield-agency.vercel.app';
-const WS_URL = import.meta.env.VITE_WS_URL || API.replace('https', 'wss').replace('http', 'ws');
+const API = 'https://dmcashield-agency.vercel.app';
+const WS_URL = 'wss://dmcashield-agency.vercel.app';
 
 export default function App() {
   const [systemStatus, setSystemStatus] = useState('connecting');

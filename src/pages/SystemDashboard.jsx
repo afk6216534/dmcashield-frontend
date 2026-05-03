@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const API = import.meta.env.VITE_API_URL || 'https://dmcashield-agency.vercel.app';
+const API = 'https://dmcashield-agency.vercel.app';
 
 export default function SystemDashboard() {
   const [status, setStatus] = useState(null);
