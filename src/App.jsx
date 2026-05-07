@@ -21,6 +21,7 @@ import WhatsAppCampaign from './pages/WhatsAppCampaign';
 import LinkedInOutreach from './pages/LinkedInOutreach';
 import ColdCalling from './pages/ColdCalling';
 import SystemDashboard from './pages/SystemDashboard';
+import LeadDetails from './pages/LeadDetails';
 import './styles/design-system.css';
 
 const API = 'http://localhost:8000';
@@ -93,6 +94,7 @@ export default function App() {
           <Route path="/system" element={<SystemDashboard />} />
           <Route path="/control-tower" element={<SystemDashboard />} />
           <Route path="/hot-leads" element={<HotLeads />} />
+          <Route path="/leads/:id" element={<LeadDetails />} />
           <Route path="/settings" element={<Settings />} />
         </Routes>
         <JARVIS />
