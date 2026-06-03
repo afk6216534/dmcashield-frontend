@@ -22,6 +22,9 @@ import LinkedInOutreach from './pages/LinkedInOutreach';
 import ColdCalling from './pages/ColdCalling';
 import SystemDashboard from './pages/SystemDashboard';
 import LeadDetails from './pages/LeadDetails';
+import DepartmentView from './pages/DepartmentView';
+import JARVISChat from './pages/JARVISChat';
+import CEOView from './pages/CEOView';
 import './styles/design-system.css';
 
 const API = 'http://localhost:8000';
@@ -96,6 +99,10 @@ export default function App() {
           <Route path="/hot-leads" element={<HotLeads />} />
           <Route path="/leads/:id" element={<LeadDetails />} />
           <Route path="/settings" element={<Settings />} />
+          <Route path="/department" element={<DepartmentView />} />
+          <Route path="/department/:dept" element={<DepartmentView />} />
+          <Route path="/jarvis" element={<JARVISChat />} />
+          <Route path="/ceo" element={<CEOView />} />
         </Routes>
         <JARVIS />
       </div>
