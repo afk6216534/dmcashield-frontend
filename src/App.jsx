@@ -25,10 +25,12 @@ import LeadDetails from './pages/LeadDetails';
 import DepartmentView from './pages/DepartmentView';
 import JARVISChat from './pages/JARVISChat';
 import CEOView from './pages/CEOView';
+import AgentBrains from './pages/AgentBrains';
+import KnowledgeBase from './pages/KnowledgeBase';
 import './styles/design-system.css';
 
-const API = 'http://localhost:8000';
-const WS_URL = 'ws://localhost:8000';
+import API from './config/api.js';
+import { WS_URL } from './config/api.js';
 
 export default function App() {
   const [systemStatus, setSystemStatus] = useState('connecting');
@@ -103,6 +105,8 @@ export default function App() {
           <Route path="/department/:dept" element={<DepartmentView />} />
           <Route path="/jarvis" element={<JARVISChat />} />
           <Route path="/ceo" element={<CEOView />} />
+          <Route path="/brains" element={<AgentBrains />} />
+          <Route path="/knowledge" element={<KnowledgeBase />} />
         </Routes>
         <JARVIS />
       </div>
