@@ -13,16 +13,34 @@ export default function LaunchTask() {
     if (!form.business_type || !form.city || !form.state) return;
     setLaunching(true);
     try {
+      // Step 1: Create task record (instant — < 1 second)
       const res = await fetch(`${API}/api/tasks`, {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
       });
       const data = await res.json();
-      setResult(data);
+      
+      if (data.error) {
+        setResult(data);
+        setLaunching(false);
+        return;
+      }
+      
+      // Step 2: Trigger scraping in background (non-blocking)
+      const taskId = data.task_id || data.task?.id;
+      if (taskId) {
+        fetch(`${API}/api/tasks/${taskId}/scrape`, { method: 'POST' })
+          .catch(() => {}); // Fire and forget — scraping runs in background
+      }
+      
+      setResult({
+        ...data,
+        message: `✅ Task created! Scraping ${form.business_type} in ${form.city} started. Check Task Manager for progress.`
+      });
       setTasks(prev => [data.task, ...prev]);
       setForm({ business_type: '', city: '', state: '', country: 'USA' });
     } catch (err) {
-      setResult({ error: 'Failed to connect to backend' });
+      setResult({ error: 'Failed to connect to backend. Please check if the backend server is running.' });
     }
     setLaunching(false);
   };

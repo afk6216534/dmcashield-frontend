@@ -33,13 +33,24 @@ export default function QuickLaunch() {
     }
     setLaunching(true);
     try {
+      // Step 1: Create task (instant)
       const res = await fetch(`${API}/api/tasks`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form)
       });
       const data = await res.json();
-      setResult(data);
+      
+      // Step 2: Trigger scraping in background
+      const taskId = data.task_id || data.task?.id;
+      if (taskId && !data.error) {
+        fetch(`${API}/api/tasks/${taskId}/scrape`, { method: 'POST' }).catch(() => {});
+      }
+      
+      setResult(data.error ? data : {
+        ...data,
+        message: `✅ Task created! Scraping started in background. Check Task Manager for progress.`
+      });
     } catch (e) {
       setResult({ error: 'Failed to launch task' });
     }
